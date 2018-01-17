@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {{!--
+    <script src="../../public/assets/js/page.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron" style="margin-top:20px">
+                    <h1>Welcome to Berg's Burgers!</h1>
+                    <p>This is a full stack application utilizing an express.js server, mySQL database, handlebars.js, JQuery,
+                        ORM/MVC and Bootstrap.</p>
+                    <p>Berg's Burgers is hosted by Heroku</p>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" id="toggle">Instructions</h3>
+                        </div>
+                        <div class="panel-body" id="dir" data="hide" style="display:none">
+                            <div class="container">
+                                <p>The top table contains burgers ready to be devoured! Click "EAT ME" to devour!</p>
+                                <p>The bottom table contains burgers that have been eaten! Click "RE ORDER" to cook up another!</p>
+                                <P>These burgers are stored in a database! Everyone sees the same burgers. To add a burger to
+                                    the database, fill out the "Name" field below and hit "ADD"!</P>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="https://github.com/lyonx/burger" role="button">Github Repo</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {{{body}}}
+    </div>
+    <script>
+
+        $(function () {
+
+            // when an "eat" button is clicked, send a put request to update the database
+            $(".eat").on("click", function (event) {
+
+                event.preventDefault();
+
+                var id = $(this).val();
+
+                $.ajax({
+                    url: `/eat/${id}`,
+                    method: "PUT"
+                }).done(function (response) {
+                    console.log(response);
+                    location.reload();
+                });
+            });
+
+            // when a "make" button is clicked, send a put request to update the database
+            $(".make").on("click", function (event) {
+
+                event.preventDefault();
+
+                var id = $(this).val();
+
+                $.ajax({
+                    url: `/make/${id}`,
+                    method: "PUT"
+                }).done(function (response) {
+                    console.log(response);
+                    location.reload();
+                });
+            });
+
+            // when the new burger button is clicked, send a post request to enter a new burger in the database
+            $("#submit").on("click", function (event) {
+
+                event.preventDefault();
+
+                var data = {
+                    burger_name: $("#new-name").val()
+                };
+
+                $.ajax({
+                    url: "/api/new",
+                    method: "POST",
+                    data: data
+                }).done(function (response) {
+                    console.log(response);
+                    location.reload();
+                });
+            });
+
+            // when a "delete" button is clicked, send a delete request to remove the burger from the database by id
+            $(".delete").on("click", function (event) {
+
+                event.preventDefault();
+
+                var id = $(this).val();
+
+                $.ajax({
+                    url: `/remove/${id}`,
+                    method: "DELETE"
+                }).then(function (response) {
+                    console.log(response);
+                    location.reload();
+                });
+            });
+
+            $("#toggle").on("click", function (event) {
+                event.preventDefault();
+                var state = $("#dir").attr("data");
+
+                if (state === "show") {
+                    $("#dir").attr("data", "hide");
+                    $("#dir").attr("style", "display:none");
+                } else {
+                    $("#dir").attr("data", "show");
+                    $("#dir").attr("style", "display:inline");
+                }
+
+            })
+        });
+    </script>
+</body>
+
+</html>
