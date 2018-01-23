@@ -10,7 +10,7 @@ app.use(bp.urlencoded({
 }));
 app.use(bp.json());
 
-app.use(express.static("public", "models"));
+app.use(express.static("public"));
 var db = require('./models');
 
 var routes = require('./controllers/controller');
