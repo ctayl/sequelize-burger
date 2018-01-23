@@ -56,6 +56,7 @@ router.get("/api/all", function (req, res) {
 });
 
 router.get("*", function (req, res) {
+    console.log("===========================================");
     db.burger.findAll({}).then(function (data) {
         res.render("all", {data});
     });
