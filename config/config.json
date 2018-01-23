@@ -7,16 +7,16 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "onrjbfiqgmr2gqd9",
+    "password": "jcgvmtov48pn49zw",
+    "database": "burgers",
+    "host": "alv4v3hlsipxnujn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "production": {
     "username": "onrjbfiqgmr2gqd9",
-    "password": "gxaiv9m6f1i0ylyp",
-    "database": "burger_db",
+    "password": "jcgvmtov48pn49zw",
+    "database": "burgers",
     "host": "alv4v3hlsipxnujn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
